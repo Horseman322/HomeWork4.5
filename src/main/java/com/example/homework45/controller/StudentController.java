@@ -1,9 +1,9 @@
-package com.example.homework44.controller;
+package com.example.homework45.controller;
 
 
-import com.example.homework44.record.FacultyRecord;
-import com.example.homework44.record.StudentRecord;
-import com.example.homework44.service.StudentService;
+import com.example.homework45.record.FacultyRecord;
+import com.example.homework45.record.StudentRecord;
+import com.example.homework45.service.StudentService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/students")
@@ -82,4 +83,13 @@ public class StudentController {
         return studentService.lastStudents(count);
     }
 
+    @GetMapping("/findStudentNameWhichStartedWithA")
+    public Stream<String> findStudentNameWhichStartedWithA(){
+        return studentService.findStudentNameWhichStartedWithA();
+    }
+
+    @GetMapping("/findStudentAverageAge")
+    public double findStudentAverageAge(){
+        return studentService.findStudentAverageAge();
+    }
 }
