@@ -1,19 +1,17 @@
-package com.example.homework44.service;
+package com.example.homework45.service;
 
 
-
-import com.example.homework44.component.RecordMapper;
-import com.example.homework44.entity.Avatar;
-import com.example.homework44.entity.Faculty;
-import com.example.homework44.entity.Student;
-import com.example.homework44.exception.AvatarNotFoundException;
-import com.example.homework44.exception.FacultyNotFoundException;
-import com.example.homework44.exception.StudentNotFoundException;
-import com.example.homework44.record.FacultyRecord;
-import com.example.homework44.record.StudentRecord;
-import com.example.homework44.repository.AvatarRepository;
-import com.example.homework44.repository.FacultyRepository;
-import com.example.homework44.repository.StudentRepository;
+import com.example.homework45.component.RecordMapper;
+import com.example.homework45.entity.Avatar;
+import com.example.homework45.entity.Faculty;
+import com.example.homework45.entity.Student;
+import com.example.homework45.exception.AvatarNotFoundException;
+import com.example.homework45.exception.StudentNotFoundException;
+import com.example.homework45.record.FacultyRecord;
+import com.example.homework45.record.StudentRecord;
+import com.example.homework45.repository.AvatarRepository;
+import com.example.homework45.repository.FacultyRepository;
+import com.example.homework45.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
 
 
 @Service
@@ -142,5 +140,20 @@ public class StudentService {
         return studentRepository.lastStudents(count).stream()
                 .map(recordMapper::toRecord)
                 .collect(Collectors.toList());
+    }
+
+    public Stream<String> findStudentNameWhichStartedWithA(){
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("A"))
+                .sorted();
+    }
+
+    public double findStudentAverageAge(){
+        return studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge)
+                .average()
+                .orElseThrow(StudentNotFoundException::new);
     }
 }

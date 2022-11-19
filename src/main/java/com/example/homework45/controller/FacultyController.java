@@ -1,11 +1,11 @@
-package com.example.homework44.controller;
+package com.example.homework45.controller;
 
 
 
 
-import com.example.homework44.record.FacultyRecord;
-import com.example.homework44.record.StudentRecord;
-import com.example.homework44.service.FacultyService;
+import com.example.homework45.record.FacultyRecord;
+import com.example.homework45.record.StudentRecord;
+import com.example.homework45.service.FacultyService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,6 +55,11 @@ public class FacultyController {
     @GetMapping("/{id}/students")
     public Collection<StudentRecord> getStudentsByFaculty(@PathVariable long id){
         return facultyService.getStudentsByFaculty(id);
+    }
+
+    @GetMapping("/findTheLongestFacultyName")
+    public String findTheLongestFacultyName(){
+        return facultyService.findTheLongestFacultyName();
     }
 
 }
